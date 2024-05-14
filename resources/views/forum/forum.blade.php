@@ -13,21 +13,18 @@
     <div class="row">
         <div class="col-md-8">
             <!-- Forum Post 1 -->
+            @foreach ($posts as $post)
+
             <div class="card mb-3">
                 <div class="card-body">
-                    <h5 class="card-title">How to deal with anxiety?</h5>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</p>
+                    <h5 class="card-title">{{$post->title}}</h5>
+                    <p class="card-text">{{$post->content}}</p>
                     <a href="#" >Read More</a>
                 </div>
             </div>
-            <!-- Forum Post 2 -->
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">Tips for a healthy diet</h5>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</p>
-                    <a href="#" >Read More</a>
-                </div>
-            </div>
+            @endforeach
+          {{-- end post --}}
+
             <!-- Add New Post Button -->
             <a href="{{route('addpost')}}" >Add New Post</a>
         </div>
@@ -37,8 +34,9 @@
                 <div class="card-body">
                     <h5 class="card-title">Recent Posts</h5>
                     <ul class="list-group">
-                        <li class="list-group-item">How to deal with anxiety?</li>
-                        <li class="list-group-item">Tips for a healthy diet</li>
+                        @foreach ($lastposts as $post)
+                        <li class="list-group-item">{{$post->title}}</li>
+                       @endforeach
                     </ul>
                 </div>
             </div>

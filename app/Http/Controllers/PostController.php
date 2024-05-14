@@ -14,7 +14,8 @@ public function addpost(Request $request){
     public function index()
 {
     $posts = Post::with('comments')->get();
-    return view('forum.forum', compact('posts'));
+    $lastposts = Post::with('comments')->orderBy('created_at','desc')->paginate(5);
+    return view('forum.forum', compact('posts','lastposts'));
 }
     public function store(Request $request)
     {
@@ -26,9 +27,9 @@ public function addpost(Request $request){
         $post = new Post;
         $post->title = $validatedData['title'];
         $post->content = $validatedData['content'];
-        $post->user_id = auth()->id(); // Assuming users are authenticated
+        $post->user_id = auth()->id(); 
         $post->save();
     
-        return redirect()->route('forum.index')->with('success', 'Post created successfully.');
+        return redirect()->route('forum')->with('success', 'Post created successfully.');
     }
 }

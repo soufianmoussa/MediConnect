@@ -14,15 +14,16 @@
         <!-- New Post Form -->
         <div class="col-lg-8">
             <form action="{{route('posts.store')}}" method="POST">
+                @csrf
                 <div class="row g-4">
                     <div class="col-lg-12">
                         <div class="border-bottom rounded">
-                            <input type="text" class="form-control border-0 me-4" placeholder="Title" name="title">
+                            <input type="text" class="form-control border-0 me-4" placeholder="Title" id="title" name="title">
                         </div>
                     </div>
                     <div class="col-lg-12">
                         <div class="border-bottom rounded my-4">
-                            <textarea name="" id="" class="form-control border-0" cols="30" rows="8" name="content" placeholder="content" spellcheck="false"></textarea>
+                            <textarea name="content" id="content" class="form-control border-0" cols="30" rows="8"  placeholder="content" ></textarea>
                         </div>
                     </div>
                     <div class="col-lg-12">
@@ -40,8 +41,9 @@
            
                     <h5 >Recent Posts</h5>
                     <ul class="list-group">
-                        <li class="list-group-item">How to deal with anxiety?</li>
-                        <li class="list-group-item">Tips for a healthy diet</li>
+                       @foreach ($lastposts as $post)
+                        <li class="list-group-item">{{$post->title}}</li>
+                       @endforeach
                     </ul>
               
         </div>
