@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminCategorieController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\DB;
@@ -45,6 +46,7 @@ Route::get('/contact', function () {
 Route::get('/forum',[PostController::class,'index'])->name('forum');
 Route::get('/addpost',[PostController::class,'addpost'])->name('addpost');
 Route::post('/post', [PostController::class,'post'])->name('post');
+Route::post('/details/{post_id}', [PostController::class,'details'])->name('details');
 Route::post('/postsstore', [PostController::class,'store'])->name('posts.store');
 Route::post('/comments', [CommentController::class,'store'])->name('comments.store');
 
@@ -76,6 +78,7 @@ Route::middleware(['auth','user-access:user'])->group(function () {
 Route::middleware(['auth','user-access:admin'])->group(function () {
     Route::get('/admin/home',[HomeController::class,'adminhome'])->name('admin/home');
     Route::get('/admin/profile',[AdminController::class,'profilepage'])->name('admin/profile');
+    Route::post('/profile/update', [AdminController::class, 'update'])->name('profile.update');
     Route::get('/admin/products',[AdminProductController::class,'index'])->name('admin/products');
     Route::get('/admin/products/create',[AdminProductController::class,'create'])->name('/admin/products/create');
     Route::post('/admin/products/store',[AdminProductController::class,'store'])->name('/admin/products/store');
@@ -83,4 +86,12 @@ Route::middleware(['auth','user-access:admin'])->group(function () {
     Route::get('/admin/products/edit/{id_produit}',[AdminProductController::class,'edit'])->name('/admin/products/edit');
     Route::put('/admin/products/edit/{id_produit}',[AdminProductController::class,'update'])->name('/admin/products/update');
     Route::delete('/admin/poroducts/destroy/{id_produit}',[AdminProductController::class,'destroy'])->name('/admin/poroducts/destroy');
+});
+
+
+Route::middleware(['auth','user-access:admin'])->group(function () {
+    Route::get('/admin/categories',[AdminCategorieController::class,'index'])->name('admin/categories');
+    Route::get('/admin/categories/create', [AdminCategorieController::class, 'create'])->name('admin.categories.create');
+    Route::post('/admin/categories', [AdminCategorieController::class, 'store'])->name('admin.categories.store');
+    Route::delete('/admin/categories/{category}', [AdminCategorieController::class, 'destroy'])->name('admin.categories.destroy');
 });

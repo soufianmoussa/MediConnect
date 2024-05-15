@@ -10,6 +10,7 @@
     <title>@yield('title')</title>
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js"></script>
+    <script src="https://kit.fontawesome.com/7f46041081.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 </head>
@@ -35,22 +36,34 @@
                         <span class="text-[15px] ml-4 text-gray-200 font-bold">Home</span>
                     </div>
                 </a>
-                <a href="#">
+                <a href="{{route('admin/categories')}}">
                     <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
-                        <i class="bi bi-house-door-fill"></i>
-                        <span class="text-[15px] ml-4 text-gray-200 font-bold">Categorie</span>
+                        <i class="fas fa-clinic-medical"></i>
+                        <span class="text-[15px] ml-4 text-gray-200 font-bold">Categories</span>
                     </div>
                 </a>
                 <a href="{{route('admin/products')}}">
                     <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
-                        <i class="bi bi-bookmark-fill"></i>
+                        <i class="fas fa-prescription-bottle-alt"></i>
                         <span class="text-[15px] ml-4 text-gray-200 font-bold">Product</span>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+                        <i class="fas fa-user-cog"></i>
+                        <span class="text-[15px] ml-4 text-gray-200 font-bold">manage</span>
                     </div>
                 </a>
                 <a href="{{route('admin/profile')}}">
                     <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
-                        <i class="bi bi-bookmark-fill"></i>
-                        <span class="text-[15px] ml-4 text-gray-200 font-bold">Profile</span>
+                        <i class="fas fa-user-alt"></i>
+                        <span class="text-[15px] ml-4 text-gray-200 font-bold">your Profile</span>
+                    </div>
+                </a>
+                <a href="/">
+                    <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+                        <i class="fas fa-eye"></i>
+                        <span class="text-[15px] ml-4 text-gray-200 font-bold">Website</span>
                     </div>
                 </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST">
