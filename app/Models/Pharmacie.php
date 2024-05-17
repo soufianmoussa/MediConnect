@@ -19,4 +19,9 @@ class Pharmacie extends Model
     {
         return $this->belongsToMany(Product::class,"produit_pharmacie",'id_produit', 'id_pharmacie');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'pharmacie_user');
+    }
 }

@@ -98,3 +98,8 @@ Route::middleware(['auth','user-access:admin'])->group(function () {
     Route::post('/admin/categories', [AdminCategorieController::class, 'store'])->name('admin.categories.store');
     Route::delete('/admin/categories/{category}', [AdminCategorieController::class, 'destroy'])->name('admin.categories.destroy');
 });
+
+
+Route::middleware(['auth','user-access:owner'])->group(function () {
+    Route::get('/pharmacy/home',[HomeController::class,'ownerhome'])->name('owner/home');
+});
