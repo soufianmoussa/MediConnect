@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Pharmacie;
 use Illuminate\Http\Request;
+use App\Models\produit_pharmacie;
 use Illuminate\Support\Facades\DB;
 
 class AdminProductController extends Controller
@@ -24,7 +26,9 @@ class AdminProductController extends Controller
      */
     public function create()
     {  $value= DB::table('categories')->get();
-        return view("adminview.products.create",compact("value"));
+        $pharmacie= DB::table('pharmacie')->get();
+
+        return view("adminview.products.create",compact("value","pharmacie"));
     }
 
     /**
@@ -79,4 +83,25 @@ class AdminProductController extends Controller
         $product->delete();
         return redirect()->route("admin/products")->with("success","deleted");
     }
+
+    public function AssignPage($id)
+    {
+        $product = Product::with('pharmacies')->findOrFail($id);
+        $Pharmacies = Pharmacie::all();
+        return view('adminview.products.AssignPh', compact('product', 'Pharmacies'));
+        
+    }
+
+    public function addPharmacies(Request $request, $id)
+{
+    $product = Product::findOrFail($id);
+    $request->validate([
+        'pharmacy' => 'required|exists:pharmacie,id',
+    ]);
+
+   
+    $product->pharmacies()->syncWithoutDetaching([$request->pharmacy]);
+    return redirect()->route('admin/products', $id)->with('success', 'Pharmacies assigned successfully.');
+}
+  
 }

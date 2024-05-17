@@ -86,6 +86,9 @@ Route::middleware(['auth','user-access:admin'])->group(function () {
     Route::get('/admin/products/edit/{id_produit}',[AdminProductController::class,'edit'])->name('/admin/products/edit');
     Route::put('/admin/products/edit/{id_produit}',[AdminProductController::class,'update'])->name('/admin/products/update');
     Route::delete('/admin/poroducts/destroy/{id_produit}',[AdminProductController::class,'destroy'])->name('/admin/poroducts/destroy');
+    /////////////////////////////////////////
+    Route::get('/product/{id}', [AdminProductController::class, 'AssignPage'])->name('product.show');
+    Route::post('/product/{id}/pharmacies', [AdminProductController::class, 'addPharmacies'])->name('product.addPharmacies');
 });
 
 

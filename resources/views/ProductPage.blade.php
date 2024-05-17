@@ -208,14 +208,12 @@
                                 <h4>Categories</h4>
                                 <ul class="list-unstyled fruite-categorie">
                                    @foreach ($categories as $item)
-                                       
                                     <li>
                                         <div class="d-flex justify-content-between fruite-name">
                                             <a href="{{route('products',['nomcat'=>$item->name])}}"><i class="fas fa-first-aid me-2"></i>{{$item->name}}</a>
                                             
                                         </div>
                                     </li>
-                                    
                                     @endforeach
                                 </ul>
                             </div>

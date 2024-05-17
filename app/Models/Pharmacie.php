@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pharmacie extends Model
 {protected $table = 'pharmacie';
+
+    protected $fillable = ['id',
+    'nom_pharmacie',
+    'adresse'
+    ,'localisation',
+    'Telephone'
+];
     use HasFactory;
     public function product()
     {

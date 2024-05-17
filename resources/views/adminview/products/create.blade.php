@@ -34,7 +34,7 @@
                                <option value="{{$item->name}}">{{$item->name}}</option>
                           @endforeach 
                         </select>
-                                        </div>
+                    </div>  
                 </div>
                 <div class="sm:col-span-4">
                     <label class="block text-sm font-medium leading-6 text-gray-900">Description</label>
