@@ -12,6 +12,7 @@ class categorie extends Model
     protected $keyType = 'string';
     use HasFactory;
     protected $fillable = [
+        "name",
         "description",
         "imagepath"
     ];

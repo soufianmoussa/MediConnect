@@ -25,7 +25,7 @@
                         <input type="email" name="email" class="w-100 form-control border-0 py-3 mb-4" placeholder="Enter Your Email">
                         <input type="password" name="password" class="w-100 form-control border-0 py-3 mb-4" placeholder="Password">
                         <span>you dont have an account yet ? <a href="{{route('register')}}">register</a></span><br>
-                        <span>Register Your pharmacy ? <a href="{{route('register')}}">register</a></span>
+                        <span>Register Your pharmacy ? <a href="{{route('registerpharmacy')}}">register</a></span>
                         <br><br>
                         <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary " type="submit">Login</button>
                     </form>

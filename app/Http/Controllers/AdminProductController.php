@@ -27,8 +27,10 @@ class AdminProductController extends Controller
     public function create()
     {  $value= DB::table('categories')->get();
         $pharmacie= DB::table('pharmacie')->get();
-
+        if(auth()->user()->type=='admin')
         return view("adminview.products.create",compact("value","pharmacie"));
+        else
+        return view("pharmacie.product.create",compact("value","pharmacie"));
     }
 
     /**
@@ -37,8 +39,37 @@ class AdminProductController extends Controller
      */
     public function store(Request $request)
     {
-        Product::create($request->all());
-        return redirect()->route("admin/products")->with("success","added");
+        $user = auth()->user();
+
+        if ($user->type == 'admin') {
+            Product::create($request->all());
+            return redirect()->route("admin/products")->with("success", "Product added successfully.");
+        } else {
+            // Retrieve the pharmacy IDs associated with the user
+            $pharmacyIds = $user->pharmacies->pluck('id');
+
+            if ($pharmacyIds->isEmpty()) {
+                return redirect()->route("pharmacies.products")->with("error", "No associated pharmacies found.");
+            }
+
+            // Check if the product already exists
+            $product = Product::where('nom', $request->input('nom'))->first();
+
+            if ($product) {
+                // If product exists, attach it to all pharmacies associated with the user
+                foreach ($pharmacyIds as $pharmacyId) {
+                    $product->pharmacies()->attach($pharmacyId);
+                }
+            } else {
+                // If product does not exist, create it and attach to all pharmacies associated with the user
+                $product = Product::create($request->all());
+                foreach ($pharmacyIds as $pharmacyId) {
+                    $product->pharmacies()->attach($pharmacyId);
+                }
+            }
+
+            return redirect()->route("pharmacies.products")->with("success", "Product added successfully.");
+        }
     }
 
     /**

@@ -36,19 +36,19 @@
                         <span class="text-[15px] ml-4 text-gray-200 font-bold">Home</span>
                     </div>
                 </a>
-                <a href="{{route('admin/categories')}}">
+                <a href="{{route('Pharmacy/categories')}}">
                     <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
                         <i class="fas fa-clinic-medical"></i>
                         <span class="text-[15px] ml-4 text-gray-200 font-bold">Categories</span>
                     </div>
                 </a>
-                <a href="#">
+                <a href="{{route('pharmacies.products')}}">
                     <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
                         <i class="fas fa-prescription-bottle-alt"></i>
                         <span class="text-[15px] ml-4 text-gray-200 font-bold">Product</span>
                     </div>
                 </a>
-                <a href="{{route('admin/profile')}}">
+                <a href="#">
                     <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
                         <i class="fas fa-user-alt"></i>
                         <span class="text-[15px] ml-4 text-gray-200 font-bold">your Profile</span>

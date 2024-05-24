@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="col-lg-12">
-        <form method="POST" action="#">
+        <form method="POST" action="{{route('registerpharmacy.submit')}}">
             @csrf
             <input type="text" name="name" class="w-100 form-control border-0 py-3 mb-4" placeholder="Your Name">
             @error('name')
@@ -30,8 +30,25 @@
             @error('password_confirmation')
             <span>{{$message}}</span>
         @enderror
+
+        <input type="text" name="pharmacy_name" class="w-100 form-control border-0 py-3 mb-4" placeholder="Pharmacy name">
+            @error('name')
+                <span class="text-red-600">{{$message}}</span>
+            @enderror
+            <input type="text" name="addresse" class="w-100 form-control border-0 py-3 mb-4" placeholder="Addresse">
+            @error('addresse')
+            <span class="text-red-600">{{$message}}</span>
+        @enderror
+        <input type="text" name="localisation" class="w-100 form-control border-0 py-3 mb-4" placeholder="Location">
+            @error('localisation')
+            <span class="text-red-600">{{$message}}</span>
+        @enderror
+        <input type="text" name="Telephone" class="w-100 form-control border-0 py-3 mb-4" placeholder="(+212)512345678">
+        @error('Telephone')
+        <span class="text-red-600">{{$message}}</span>
+    @enderror
         
-            <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary " type="submit">Next</button>
+            <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary " type="submit">submit</button>
         </form>
     </div>
 </div>

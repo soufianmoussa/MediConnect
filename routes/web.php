@@ -1,20 +1,22 @@
 <?php
 
-use App\Http\Controllers\AdminCategorieController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\ForumController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FavorisController;
 use App\Http\Controllers\productController;
 use App\Http\Controllers\PharmacieController;
 use App\Http\Controllers\categoriesController;
 use App\Http\Controllers\ProductpageController;
 use App\Http\Controllers\AdminProductController;
+use App\Http\Controllers\AdminCategorieController;
 use App\Http\Controllers\PharmaciedeGardeController;
+use App\Http\Controllers\PharmacieProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,12 +45,12 @@ Route::get('/products', [productController::class,'search'])->name('products.sea
 Route::get('/contact', function () {
     return view('Contact');
 });
-Route::get('/forum',[PostController::class,'index'])->name('forum');
-Route::get('/addpost',[PostController::class,'addpost'])->name('addpost');
-Route::post('/post', [PostController::class,'post'])->name('post');
-Route::post('/details/{post_id}', [PostController::class,'details'])->name('details');
-Route::post('/postsstore', [PostController::class,'store'])->name('posts.store');
-Route::post('/comments', [CommentController::class,'store'])->name('comments.store');
+///forum
+Route::get('/forum', [ForumController::class, 'index'])->name('forum.index');
+Route::get('/forum/create', [ForumController::class, 'create'])->name('forum.create');
+Route::post('/forum', [ForumController::class, 'store'])->name('forum.store');
+Route::get('/forum/{post}', [ForumController::class, 'show'])->name('forum.show');
+Route::post('/forum/{post}/comments', [ForumController::class, 'storeComment'])->name('forum.comments.store');
 
 
 Route::get('/pharmaciedegarde',[PharmaciedeGardeController::class,'index'])->name('pharmaciedegarde');
@@ -68,6 +70,8 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'registreSave' )->name('register.save');
     Route::get('login','login')->name('login');
     Route::post('login','loginAction')->name('login.action');
+    Route::get('/register/pharmacy',  'pharmacy')->name('registerpharmacy');
+    Route::post('/register/pharmacy',  'registerpharmacy')->name('registerpharmacy.submit');
     Route::post('logout','logout')->middleware('auth')->name('logout');
 });
 
@@ -102,4 +106,14 @@ Route::middleware(['auth','user-access:admin'])->group(function () {
 
 Route::middleware(['auth','user-access:owner'])->group(function () {
     Route::get('/pharmacy/home',[HomeController::class,'ownerhome'])->name('owner/home');
+    Route::get('/Pharmacy/products',[PharmacieProductController::class,'showProducts'])->name('pharmacies.products');
+    Route::get('/Pharmacy/categories',[AdminCategorieController::class,'index'])->name('Pharmacy/categories');
+    Route::get('/pharmacy/categories/create', [AdminCategorieController::class, 'create'])->name('pharmacy.categories.create');
+    Route::post('/pharmacy/categories', [AdminCategorieController::class, 'store'])->name('pharmacy.categories.store');
+    Route::delete('/pharmacy/categories/{category}', [AdminCategorieController::class, 'destroy'])->name('pharmacy.categories.destroy');
+
+    //products
+    Route::get('/Pharmacy/products/create',[AdminProductController::class,'create'])->name('/pharmacy/products/create');
+    Route::post('/Pharmacy/products/store',[AdminProductController::class,'store'])->name('/pharmacy/products/store');
+
 });
