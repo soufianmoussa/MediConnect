@@ -45,7 +45,7 @@
                 <div class="col-lg-12">
                     <div class="h-100 rounded">
                         <iframe class="rounded w-100" 
-                        style="height: 400px;" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=hay%20karima+()&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" 
+                        style="height: 400px;" src="{{$pharmacie->localisation}}" 
                         loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>

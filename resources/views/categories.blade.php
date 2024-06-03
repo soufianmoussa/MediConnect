@@ -14,9 +14,7 @@
     <div class="container py-5">
         <div class="tab-class text-center">
             <div class="row g-4">
-                <div class="col-lg-4 text-start">
-                    <h1>Chose a Categorie</h1>
-                </div>
+              
             </div>
             <div class="tab-content">
                 <div id="tab-1" class="tab-pane fade show p-0 active">

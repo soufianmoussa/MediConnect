@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ForumController;
+use App\Http\Controllers\ManageUsersController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -93,6 +94,14 @@ Route::middleware(['auth','user-access:admin'])->group(function () {
     /////////////////////////////////////////
     Route::get('/product/{id}', [AdminProductController::class, 'AssignPage'])->name('product.show');
     Route::post('/product/{id}/pharmacies', [AdminProductController::class, 'addPharmacies'])->name('product.addPharmacies');
+    ////////////
+    //manage account
+    Route::get('/admin/manage-users', [ManageUsersController::class, 'index'])->name('admin.manage-users');
+Route::put('/admin/manage-users/{user}/make-admin', [ManageUsersController::class, 'makeAdmin'])->name('admin.make-admin');
+Route::delete('/admin/manage-users/{user}', [ManageUsersController::class, 'destroy'])->name('admin.delete-user');
+Route::get('/admin/manage-users/create', [ManageUsersController::class, 'create'])->name('admin.create-user');
+Route::post('/admin/manage-users', [ManageUsersController::class, 'store'])->name('admin.store-user');
+Route::get('/admin/manage-users/{user}', [ManageUsersController::class, 'show'])->name('admin.show-user');
 });
 
 
@@ -115,5 +124,8 @@ Route::middleware(['auth','user-access:owner'])->group(function () {
     //products
     Route::get('/Pharmacy/products/create',[AdminProductController::class,'create'])->name('/pharmacy/products/create');
     Route::post('/Pharmacy/products/store',[AdminProductController::class,'store'])->name('/pharmacy/products/store');
-
+//profile
+Route::get('/Pharmacy/Profile',[PharmacieController::class,'profileshow'])->name('pharmacies.profile');
+Route::post('/Pharmacy/pharmacie/update',[PharmacieController::class,'update'])->name('pharmacies.profile.update');
+Route::post('/Pharmacy/password/update',[PharmacieController::class,'changePassword'])->name('pharmacies.profile.password');
 });

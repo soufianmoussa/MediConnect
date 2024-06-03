@@ -173,7 +173,7 @@
         <div class="container-fluid testimonial py-5">
             <div class="container py-5">
                 <div class="testimonial-header text-center">
-                    <h4 class="text-primary">Our Testimonial</h4>
+                   
                     <h1 class="display-5 mb-5 text-dark">what patients say!</h1>
                 </div>
                 <div class="owl-carousel testimonial-carousel">
