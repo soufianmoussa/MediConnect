@@ -14,7 +14,8 @@ class Product extends Model
         "nom",
         "categorie",
         "prix",
-        "description"
+        "description",
+        "substance"
     ];
 
     public function pharmacies()

@@ -12,7 +12,9 @@ class Pharmacie extends Model
     'nom_pharmacie',
     'adresse'
     ,'localisation',
-    'Telephone'
+    'Telephone',
+    'latitude',
+    'longitude'
 ];
     use HasFactory;
     public function product()

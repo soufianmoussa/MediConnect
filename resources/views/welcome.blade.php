@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','MediConnect-Home')
+@section('title','MediConnect - Home')
 @section('main')
 
         <!-- Hero Start -->

@@ -16,7 +16,8 @@ class HomeController extends Controller
         $this->middleware("auth");
     }
     public function index(){
-        $value= DB::table('produit')->where('categorie','Analgesics')->get();
+        $value= DB::table('produit')->get();
+       
         return view("welcome",["produit"=>$value]);
     }
     public function adminhome(){

@@ -27,6 +27,7 @@
 
         <!-- Template Stylesheet -->
         <link href="{{asset('css/style.css')}}" rel="stylesheet">
+        @yield('style')
     </head>
 
     <body>
@@ -74,7 +75,7 @@
                                 
                                 <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Welcome</a>
                                 <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                                    <a href="#" class="dropdown-item">profile</a>
+                                    <a href="{{route('profile.index')}}" class="dropdown-item">profile</a>
                                     <a href="/favoris" class="dropdown-item">favoris</a>
                                     <a href="#" class="dropdown-item">Settings</a>
                                     <a href="#"class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
@@ -219,7 +220,7 @@
     <script src="{{asset('lib/lightbox/js/lightbox.min.js')}}"></script>
     <script src="{{asset('lib/owlcarousel/owl.carousel.min.js')}}"></script>
     <script src="https://kit.fontawesome.com/7f46041081.js" crossorigin="anonymous"></script>
-
+@yield('script')
     <!-- Template Javascript -->
     <script src="{{asset('js/main.js')}}"></script>
     </body>

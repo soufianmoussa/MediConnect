@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','MediConnect-Favoris')
+@section('title','MediConnect - Favoris')
 @section('main')
       <!-- Single Page Header start -->
   <div class="container-fluid page-header py-5">

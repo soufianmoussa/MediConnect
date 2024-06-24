@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','MediConnect-Contact')
+@section('title','MediConnect - Contact')
 @section('main')
 
     <!-- Single Page Header start -->

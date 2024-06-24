@@ -1,11 +1,7 @@
 @extends('layouts.master')
-@section('title','MediConnect-')
+@section('title','MediConnect - Medication')
 @section('main')
-<style>
-    .inline-button {
-        display: inline-block;
-    }
-</style>
+
  <!-- Single Page Header start -->
  <div class="container-fluid page-header py-5">
     <h1 class="text-center text-white display-6">{{$product->nom}}</h1>
@@ -35,18 +31,18 @@
                                 <i class="fa fa-star"></i>
                             </div>
                             <p class="mb-4">{{$product->description}}</p>
-                            <div class="d-inline-block">
-                                <form action="{{ route('favoris.add', ['produit' => $product->id_produit]) }}" method="POST" class="mr-2">
-                                    @csrf
-                                    <button type="submit" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary inline-button">
-                                        <i class="fas fa-heart"></i> favoris
-                                    </button>
-                                </form>     
-                                <a href="#" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary inline-button">
-                                    <i class="fas fa-prescription-bottle"></i>Show Alternatif
-                                </a>
-                                
-                            </div>
+                           <div class="d-flex ">
+    <form action="{{ route('favoris.add', ['produit' => $product->id_produit]) }}" method="POST" class="mr-3">
+        @csrf
+        <button type="submit" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 mr-5 text-primary">
+            <i class="fas fa-heart"></i> favoris
+        </button>
+    </form>
+<span class="btn"></span>
+    <a href="{{ route('product.alternatives', ['id' => $product->id_produit]) }}" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary">
+        <i class="fas fa-prescription-bottle"></i> Show Alternatif
+    </a>
+</div>
                         </div>
                         
                         <div class="col-lg-12">
@@ -124,20 +120,10 @@
                                     
                                 
                                 <div class="tab-pane" id="nav-mission" role="tabpanel" aria-labelledby="nav-mission-tab">
-                                    @foreach ($pharmacies as $pharmacie)
-                                    <div class="d-flex">
-                                        <img src="{{asset('img/pharmacy.jpg')}}" class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;" alt="">
-                                        <div class="">
-                                            <h5><a href="{{route('pharmacie',['nom_pharmacie'=>$pharmacie->nom_pharmacie])}}">{{$pharmacie->nom_pharmacie}}</a></h5>
-                                            <div class="d-flex justify-content-between">
-                                                
-                                                <p class="mb-2" style="font-size: 14px;">{{$pharmacie->Telephone}}</p>
-                                           
-                                            </div>
-                                            <p>{{$pharmacie->adresse}}</p>
-                                        </div>
+                                    <div id="pharmacy-list">
+                                        <!-- Pharmacies will be dynamically loaded here by JavaScript -->
                                     </div>
-                                   @endforeach
+                               
                                 </div>
                                 
                                 {{-- pharmacie end --}}
@@ -260,4 +246,48 @@
         </div>
     </div>
     <!-- Single Product End -->
+@endsection
+@section('script')
+<script>
+    var pharmacyImageUrl = "{{ asset('img/pharmacy.jpg') }}";
+    var pharmacyRouteTemplate = "{{ route('pharmacie', ['nom_pharmacie' => '__NOM_PHARMACIE__']) }}";
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+
+    function showPosition(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+
+        fetch(`/api/nearby-pharmacies?latitude=${latitude}&longitude=${longitude}`)
+            .then(response => response.json())
+            .then(data => {
+                const pharmacyList = document.getElementById('pharmacy-list');
+                pharmacyList.innerHTML = '';
+                data.forEach(pharmacie => {
+                    const pharmacyDiv = document.createElement('div');
+                    pharmacyDiv.classList.add('d-flex');
+                    var pharmacyRoute = pharmacyRouteTemplate.replace('__NOM_PHARMACIE__', pharmacie.nom_pharmacie);
+
+                    pharmacyDiv.innerHTML = `
+                        <img src="${pharmacyImageUrl}" class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;" alt="">
+                        <div class="">
+                            <h5><a href="${pharmacyRoute}">${pharmacie.nom_pharmacie}</a></h5>
+                            <div class="d-flex justify-content-between">
+                                <p class="mb-2" style="font-size: 14px;">${pharmacie.Telephone}</p>
+                            </div>
+                            <p>${pharmacie.adresse}</p>
+                        </div>
+                    `;
+                    pharmacyList.appendChild(pharmacyDiv);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching nearby pharmacies:', error);
+            });
+    }
+</script>
 @endsection

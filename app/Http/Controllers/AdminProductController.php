@@ -7,7 +7,7 @@ use App\Models\Pharmacie;
 use Illuminate\Http\Request;
 use App\Models\produit_pharmacie;
 use Illuminate\Support\Facades\DB;
-
+//admin product controller
 class AdminProductController extends Controller
 {
     /**
@@ -33,10 +33,7 @@ class AdminProductController extends Controller
         return view("pharmacie.product.create",compact("value","pharmacie"));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     */
+   
     public function store(Request $request)
     {
         $user = auth()->user();
@@ -81,21 +78,13 @@ class AdminProductController extends Controller
         $product=Product::findOrFail($id_produit);
         return view("adminview.products.show",compact("product"));
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     */
+//edit product +vue
     public function edit($id)
     { $value= DB::table('categories')->get();
         $product=Product::findOrFail($id);
         return view("adminview.products.edit",compact("product","value"));
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     */
+//edit product finction
     public function update(Request $request, $id)
     {
         $product=Product::findOrFail($id);
@@ -103,18 +92,14 @@ class AdminProductController extends Controller
         return redirect()->route("admin/products")->with("success","updated");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-    
-     */
+   //delete product
     public function destroy($id)
     {
         $product=Product::findOrFail($id);
         $product->delete();
         return redirect()->route("admin/products")->with("success","deleted");
     }
-
+//fonction pour assigneles pharmacie + vue
     public function AssignPage($id)
     {
         $product = Product::with('pharmacies')->findOrFail($id);
